@@ -1,19 +1,21 @@
+
 let {UPGMAElement, UPGMACluster} = require('../src/index.js');
-let x = new UPGMACluster();
-let tags = 'whateveritis';
+
+let cluster = new UPGMACluster();
 
 for (var i = 0; i<10; i++) {
-  let _t = [];
-  for (var t = 0; t < Math.random(); t += .1) {
-    _t.push(randTags())
-  }
-  let el = new UPGMAElement(..._t)
-  x.elements.push(el);
+  // create Element with tags;
+  let el = new UPGMAElement(...randTags());
+  cluster.elements.push(el);
 }
+// generate Map, print id;
+console.trace('test', cluster.generate().map(a => a.id))
 
 function randTags () {
-  return tags.charAt(Math.round(Math.random() * tags.length));
+  let tags = 'whateveritis';
+  let _t = [];
+  for (var t = 0; t < Math.random(); t += .1) {
+    _t.push(tags.charAt(Math.round(Math.random() * tags.length)));
+  }
+  return _t;
 }
-
-
-console.trace('test', x.generate().map(a => a.id))
