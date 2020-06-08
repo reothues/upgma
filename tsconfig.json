@@ -1,22 +1,15 @@
-
 {
   "compilerOptions": {
     "sourceMap": true,
     "module": "commonjs",
     "target": "es2017",
     "jsx": "react",
-    "allowSyntheticDefaultImports" : true,
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
-    "typeRoots": [
-      "./node_modules/@types"
-    ],
-     "lib": ["es5", "es6", "dom"],
-
-    "baseUrl": ".",
+    "typeRoots": ["./node_modules/@types"],
+    "lib": ["es5", "es6", "dom"],
+    "outDir": "./lib",
+    "baseUrl": "."
   },
-  "exclude": [
-    "**/node_modules",
-    "**/*.spec.ts",
-    "**/*.d.ts"
-  ]
+  "exclude": ["**/node_modules", "**/*.spec.ts", "**/*.d.ts"]
 }
