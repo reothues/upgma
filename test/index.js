@@ -1,21 +1,31 @@
 
-let {UPGMAElement, UPGMACluster} = require('../src/index.js');
+let {UPGMAElement, UPGMACluster} = require('../lib/index.js');
 
 let cluster = new UPGMACluster();
 
-for (var i = 0; i<10; i++) {
-  // create Element with tags;
-  let el = new UPGMAElement(...randTags());
-  cluster.elements.push(el);
-}
-// generate Map, print id;
-console.trace('test', cluster.generate().map(a => a.id))
+cluster.elements.push(
+  new UPGMAElement('jupiter', 'jupiter', 'framework', 'ssr', 'garr'),
+  new UPGMAElement('eden', 'eden', 'framework', 'ssr', 'gecko'),
+  new UPGMAElement('gecko', 'offline', 'channel'),
+  new UPGMAElement('lynx', 'rn-like', 'framework', 'client'),
+  new UPGMAElement('devops', 'devops', 'pipeline'),
+);
 
-function randTags () {
-  let tags = 'whateveritis';
-  let _t = [];
-  for (var t = 0; t < Math.random(); t += .1) {
-    _t.push(tags.charAt(Math.round(Math.random() * tags.length)));
-  }
-  return _t;
+// generate Map, print id;
+const matrix = cluster.getDistanceMatrix()
+console.log(matrix);
+const dendrogram = cluster.generate();
+console.log(JSON.stringify(dendrogram, null, 2));
+
+const nameDendrogram = fsa(dendrogram, cluster);
+console.log(JSON.stringify(nameDendrogram, null, 2));
+
+function fsa(row, cluster1) {
+  return row.map(item => {
+    if (typeof item === 'number') {
+      return cluster1.elements[item].name;
+    } else {
+      return fsa(item, cluster1);
+    }
+  });
 }
